@@ -1,0 +1,9 @@
+1 open("file.txt", "r") – File open karne ke liye
+2 read() – Puri file read karne ke liye
+3 readline() – Ek line read karne ke liye
+4 readlines() – Sabhi lines ek list me lene ke liye
+5 write("text") – File me likhne ke liye
+6 "w" – Pura data overwrite karega
+7 "a" – Data ko add karega bina delete kiye
+8 os.remove("file.txt") – File delete karne ke liye
+9 "with open()" – File handling ka best practice
