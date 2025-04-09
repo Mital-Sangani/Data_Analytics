@@ -1,0 +1,22 @@
+-----------------KALYAN JWELLERS------------------ 
+Name : mital 
+Gender : female 
+Age : 20 
+Product : ['ring', 'neckless'] 
+Product(gram) : 500 
+------------------------------------------------- 
+Current Gold Rate is : 5752 
+------------------------------------------------- 
+Total gold rate is : 2876000 
+
+Making Charges is : 845/g 
+Total Making Charges is : 422500 
+-------------------------------------------------- 
+Total Amount is : 3298500 
+-------------------------------------------------- 
+Your Discount is : 30% 
+Your Discount amount is : 989550.0 
+-------------------------------------------------- 
+Your Net amount : 2308950.0 
+-------------------------------------------------- 
+
