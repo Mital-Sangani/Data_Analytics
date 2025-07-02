@@ -1,90 +1,109 @@
+-- Creating a new database named MarketCo
 create database MarketCo;
 
+-- Using the created database
 use MarketCo;
 
+-- Creating Company table to store company details
 create table Company
 (
-CompanyID int primary key,
-CompanyName varchar(45),
-Street varchar(45),
-City varchar(45),
-State varchar(2),
-Zip varchar(10)
+CompanyID int primary key,             -- Unique ID for each company
+CompanyName varchar(45),              -- Name of the company
+Street varchar(45),                   -- Street address
+City varchar(45),                     -- City name
+State varchar(2),                     -- State abbreviation (like GJ)
+Zip varchar(10)                       -- ZIP code
 );
 
+-- Creating Contact table to store contacts of companies
 create table Contact
 (
-ContactID int primary key,
-CompanyID int,
-FirstName varchar(45),
-LastName varchar(45),
-Street varchar(45),
-City varchar(45),
-State varchar(2),
-Zip varchar(10),
-IsMain boolean,
-Email varchar(45),
-Phone varchar(12)
+ContactID int primary key,            -- Unique ID for each contact
+CompanyID int,                        -- Foreign key to Company table
+FirstName varchar(45),               -- Contact's first name
+LastName varchar(45),                -- Contact's last name
+Street varchar(45),                  -- Address street
+City varchar(45),                    -- City name
+State varchar(2),                    -- State abbreviation
+Zip varchar(10),                     -- ZIP code
+IsMain boolean,                      -- Is this the main contact?
+Email varchar(45),                   -- Email address
+Phone varchar(12)                    -- Phone number
 );
 
+-- Adding a foreign key to link Contact with Company
 alter table Contact add foreign key(CompanyID) references Company(CompanyID);
 
+-- Creating table to store employee interactions with contacts
 create table ContactEmployee
 (
-ContactEmployeeID int primary key,
-ContactID int,
-EmployeeID int,
-ContactDate date,
-Description varchar(100)
+    ContactEmployeeID int primary key,   -- Unique ID for each interaction
+    ContactID int,                       -- Foreign key to Contact table
+    EmployeeID int,                      -- Foreign key to Employee table
+    ContactDate date,                    -- Date of contact
+    Description varchar(100)            -- Description of the interaction
 );
 
+-- Linking ContactEmployee with Contact table
 alter table ContactEmployee add foreign key(ContactID) references Contact(ContactID);
+
+-- Linking ContactEmployee with Employee table
 alter table ContactEmployee add foreign key(EmployeeID) references Employee(EmployeeID);
 
+-- Creating Employee table to store employee details
 create table Employee
 (
-EmployeeID int primary key,
-FirstName varchar(45),
-LastName varchar(45),
-Salary decimal(10,2),
-HireDate date,
-JobTitle varchar(25),
-Email varchar(45),
-Phone varchar(12)
+    EmployeeID int primary key,         -- Unique ID for each employee
+    FirstName varchar(45),              -- First name
+    LastName varchar(45),               -- Last name
+    Salary decimal(10,2),               -- Salary amount
+    HireDate date,                      -- Date of hiring
+    JobTitle varchar(25),               -- Job title
+    Email varchar(45),                  -- Email address
+    Phone varchar(12)                   -- Phone number
 );
 
+
+-- Inserting data into Company table
 insert into Company values
 (1, 'TechNova Solutions', '123 Maple St', 'Ahmedabad', 'GJ', '380015'),
 (2, 'BrightPath Corp', '456 Pine Rd', 'Surat', 'GJ', '395007'),
 (3, 'EcoWare Pvt Ltd', '789 Oak Ave', 'Vadodara', 'GJ', '390001'),
 (4, 'Urban Outfitters, Inc', '666 Maple St', 'Ahmedabad', 'GJ', '380018');
 
+-- Inserting data into Contact table
 insert into Contact values
 (1, 1, 'Riya', 'Shah', '123 Maple St', 'Ahmedabad', 'GJ', '380015', TRUE, 'riya@technova.com', '9876543210'),
 (2, 2, 'Mehul', 'Patel', '456 Pine Rd', 'Surat', 'GJ', '395007', TRUE, 'mehul@brightpath.com', '9876512345'),
 (3, 2, 'Sneha', 'Desai', '789 Oak Ave', 'Surat', 'GJ', '395007', FALSE, 'sneha@brightpath.com', '9876567890'),
 (4, 3, 'Dianne', 'Connor', '789 Oak Ave', 'Vadodara', 'GJ', '390001', TRUE, 'aarav@ecoware.com', '9876534567');
 
+-- Inserting data into Employee table
 insert into Employee values
 (101, 'Nidhi', 'Kapoor', 60000.00, '2021-04-12', 'Sales Manager', 'nidhi@marketco.com', '9087654321'),
 (102, 'Jack', 'Lee', 45000.00, '2022-01-20', 'Marketing Executive', 'raj@marketco.com', '9012345678'),
 (103, 'Anjali', 'Trivedi', 50000.00, '2020-10-01', 'Business Analyst', 'anjali@marketco.com', '9001234567'),
 (104, 'Lesley', 'Bland', 55000.00, '2023-03-15', 'Project Manager', 'lesley@marketco.com', '666-555-0000');
 
+-- Inserting data into ContactEmployee table (employee meetings)
 insert into ContactEmployee values
 (1, 1, 101, '2024-05-01', 'Initial meeting with TechNova team'),
 (2, 2, 102, '2024-05-02', 'Marketing discussion with BrightPath'),
 (3, 3, 103, '2024-05-03', 'Follow-up call with Sneha'),
 (4, 4, 102, '2024-05-04', 'EcoWare onboarding session');
 
+-- Updating phone number for employee with ID 104
 update Employee set Phone = "215-555-8800" where EmployeeID = 104;
 
+-- Updating company name for company ID 4
 update company set CompanyName = "Urban Outfitters" where companyID = 4;
 
+-- Deleting a contact employee record with ID 4
 delete from ContactEmployee where ContactEmployeeID = 4;
 
+-- Selecting contact names from a specific company
 SELECT Contact.FirstName, Contact.LastName FROM Contact JOIN Company ON Contact.CompanyID = Company.CompanyID
-WHERE Company.CompanyName = 'Toll Brothers';
+WHERE Company.CompanyName = 'Toll Brothers';   -- This will return nothing unless 'Toll Brothers' exists
 
 
 -- ===============  What is the significance of “%” and “_” operators in the LIKE statement?   ======================================================================================
